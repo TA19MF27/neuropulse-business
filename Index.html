@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -96,21 +98,123 @@
 </head>
 <body>
   <a class="skip-link" href="#main">Saltar al contenido</a>
-<button class="lang-toggle" id="langToggle" aria-pressed="false">EN/ES</button>
-<header>
+
+  <button class="lang-toggle" id="langToggle" aria-pressed="false">EN/ES</button>
+
+  <header>
     <h1 id="brand">NeuroPulse Business</h1>
     <p id="slogan">Activa tu equipo. Potencia tu empresa.</p>
   </header>
- <nav role="navigation" aria-label="Navegación principal">
+
+  <nav role="navigation" aria-label="Navegación principal">
     <button type="button" data-target="services" aria-controls="services">Servicios</button>
     <button type="button" data-target="team" aria-controls="team">Equipo</button>
     <button type="button" data-target="contact" aria-controls="contact">Contacto</button>
   </nav>
+
   <main id="main" role="main">
     <section id="services" aria-labelledby="services-h">
       <h2 id="services-h">Servicios</h2>
       <p id="services-text">Ofrecemos soluciones digitales y programas de formación diseñados para mejorar la productividad, la comunicación y el bienestar del equipo.</p>
     </section>
 
+    <section id="team" aria-labelledby="team-h">
+      <h2 id="team-h">Equipo</h2>
+      <p id="team-text">Nuestro equipo combina experiencia en neurociencia aplicada, tecnología y formación empresarial para implementar estrategias prácticas en tu organización.</p>
+    </section>
+
+    <section id="contact" aria-labelledby="contact-h">
+      <h2 id="contact-h">Contacto</h2>
+      <p id="contact-text">Escríbenos a <a id="contact-mail" href="mailto:neuro.pulse@demo.com">neuro.pulse@demo.com</a> para más información o para agendar una demo.</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; <span id="year">2025</span> NeuroPulse Business</p>
+  </footer>
+
+  <script>
+    // Traducciones mínimas (ES/EN)
+    const translations = {
+      es: {
+        brand: "NeuroPulse Business",
+        slogan: "Activa tu equipo. Potencia tu empresa.",
+        nav: ["Servicios","Equipo","Contacto"],
+        servicesTitle: "Servicios",
+        servicesText: "Ofrecemos soluciones digitales y programas de formación diseñados para mejorar la productividad, la comunicación y el bienestar del equipo.",
+        teamTitle: "Equipo",
+        teamText: "Nuestro equipo combina experiencia en neurociencia aplicada, tecnología y formación empresarial para implementar estrategias prácticas en tu organización.",
+        contactTitle: "Contacto",
+        contactText: "Escríbenos a ",
+        contactMail: "neuro.pulse@demo.com",
+        contactMailText: "neuro.pulse@demo.com"
+      },
+      en: {
+        brand: "NeuroPulse Business",
+        slogan: "Activate your team. Boost your business.",
+        nav: ["Services","Team","Contact"],
+        servicesTitle: "Services",
+        servicesText: "We provide digital solutions and training programs designed to improve productivity, communication and team wellbeing.",
+        teamTitle: "Team",
+        teamText: "Our team combines applied neuroscience, technology and corporate training experience to implement practical strategies in your organization.",
+        contactTitle: "Contact",
+        contactText: "Write to us at ",
+        contactMail: "neuro.pulse@demo.com",
+        contactMailText: "neuro.pulse@demo.com"
+      }
+    };
+
+    // Estado inicial
+    let currentLang = 'es';
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    function applyLang(lang){
+      const t = translations[lang] || translations.es;
+      document.documentElement.lang = lang;
+      document.getElementById('brand').textContent = t.brand;
+      document.getElementById('slogan').textContent = t.slogan;
+
+      const navButtons = document.querySelectorAll('nav button');
+      navButtons.forEach((btn, i) => btn.textContent = t.nav[i]);
+
+      document.getElementById('services-h').textContent = t.servicesTitle;
+      document.getElementById('services-text').textContent = t.servicesText;
+
+      document.getElementById('team-h').textContent = t.teamTitle;
+      document.getElementById('team-text').textContent = t.teamText;
+
+      document.getElementById('contact-h').textContent = t.contactTitle;
+      document.getElementById('contact-text').innerHTML = t.contactText + '<a id="contact-mail" href="mailto:' + t.contactMail + '">' + t.contactMailText + '</a>';
+    }
+
+    function toggleLang(){
+      currentLang = currentLang === 'es' ? 'en' : 'es';
+      applyLang(currentLang);
+      const btn = document.getElementById('langToggle');
+      btn.setAttribute('aria-pressed', currentLang === 'en');
+      btn.textContent = currentLang === 'es' ? 'EN/ES' : 'EN/ES';
+    }
+
+    function scrollToSection(id){
+      const el = document.getElementById(id);
+      if(el){
+        el.scrollIntoView({behavior:'smooth', block:'start'});
+        el.focus({preventScroll:true});
+      }
+    }
+
+    // eventos
+    document.getElementById('langToggle').addEventListener('click', toggleLang);
+    document.querySelectorAll('nav button').forEach(btn=>{
+      btn.addEventListener('click', () => scrollToSection(btn.dataset.target));
+    });
+
+    // Inicializar idioma
+    applyLang(currentLang);
+  </script>
+</body>
+</html>
+
+      
 
  
